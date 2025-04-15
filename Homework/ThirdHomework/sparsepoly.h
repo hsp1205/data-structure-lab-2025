@@ -25,8 +25,15 @@ public:
 		for (int i = 0; i < numTerms; ++i) {
 			std::cout << i + 1 << "번째 항의 계수와 차수를 입력하세요 (예: 계수 차수): ";
 			std::cin >> coef >> exp;
-			coefficients.push_back(coef);  // 입력받은 계수와 차수를 벡터에 저장
-			exponents.push_back(exp);
+
+			// 계수가 0이 아닌 경우에만 입력함
+			if (coef != 0) {
+				coefficients.push_back(coef);  // 입력받은 계수와 차수를 벡터에 저장
+				exponents.push_back(exp);
+			}
+			else {
+				--numTerms;
+			}
 		}
 	}
 
@@ -54,11 +61,9 @@ public:
 			// 두 항의 차수가 같은 경우 -> 계수끼리 더함
 			if (a.exponents[i] == b.exponents[j]) {
 				float sum = a.coefficients[i] + b.coefficients[j];
-				if (sum != 0) {
-					exponents.push_back(a.exponents[i]);
-					coefficients.push_back(sum);
-					++numTerms;
-				}
+				exponents.push_back(a.exponents[i]);
+				coefficients.push_back(sum);
+				++numTerms;
 				++i;
 				++j;
 			}
